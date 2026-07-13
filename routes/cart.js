@@ -1,6 +1,6 @@
 import express from "express";
 import { z } from "zod";
-import { getCart, addIteצ, addItem, deleteItem } from "./cart_controler.js";
+import { getCart, addItem, deleteItem } from "./cart_controller.js";
 
 const CUSTOMER_FILE = process.env.CUSTOMER_FILE;
 const BOOKS_FILE = process.env.BOOKS_FILE;
