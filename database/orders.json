@@ -1,0 +1,20 @@
+[
+  {
+    "id": "101",
+    "customerId": "reader99",
+    "items": [
+      {
+        "productId": 4,
+        "quantity": 1,
+        "price": 95
+      },
+      {
+        "productId": 1,
+        "quantity": 1,
+        "price": 80
+      }
+    ],
+    "total": 175,
+    "createdAt": "2026-07-08T10:15:30Z"
+  }
+]

@@ -1,18 +1,9 @@
 import express from "express";
-import { z } from "zod";
-import { getCart, addItem, deleteItem } from "./cart_controller.js";
-
-const CUSTOMER_FILE = process.env.CUSTOMER_FILE;
-const BOOKS_FILE = process.env.BOOKS_FILE;
+import { getCart, addItem, deleteItem } from "../services/cart_controller.js";
 
 export const router = express.Router();
 router.use(express.json());
 
-const validateItem = z.object({
-    customerId: z.string().min(1),
-    productId: z.number().int(),
-    quantity: z.number().int().min(1),
-});
 
 router.get("/", getCart);
 

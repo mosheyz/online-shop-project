@@ -1,0 +1,27 @@
+[
+  {
+    "customerId": "user123",
+    "balance": 500,
+    "cart": [
+      {
+        "productId": 2,
+        "quantity": 1
+      },
+      {
+        "productId": 5,
+        "quantity": 2
+      },
+      {
+        "productId": 1,
+        "quantity": 10
+      }
+    ],
+    "createdAt": "2026-07-09T08:00:00Z"
+  },
+  {
+    "customerId": "reader99",
+    "balance": 150,
+    "cart": [],
+    "createdAt": "2026-06-15T14:30:00Z"
+  }
+]

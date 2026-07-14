@@ -1,8 +1,15 @@
-import { readFile, writeFile } from "../services/file_manager.js";
-import { success, fail } from "../services/services.js";
+import { readFile, writeFile } from "./file_manager.js";
+import { success, fail } from "./services.js";
+import { z } from "zod";
 
 const CUSTOMER_FILE = process.env.CUSTOMER_FILE;
 const BOOKS_FILE = process.env.BOOKS_FILE;
+
+const validateItem = z.object({
+    customerId: z.string().min(1),
+    productId: z.number().int(),
+    quantity: z.number().int().min(1),
+});
 
 export const getCart = async (req, res) => {
     try {
@@ -65,13 +72,15 @@ export const addItem = async (req, res) => {
     }
 };
 
-export const deleteItem = (req, res) => {
+export const deleteItem = async (req, res) => {
     try {
         const { productId } = req.params;
         const { customerId } = req.body;
 
         if (!customerId) {
-            return res.status(400).send(fail("customerId is required in request body"));
+            return res
+                .status(400)
+                .send(fail("customerId is required in request body"));
         }
 
         const customers = await readFile(CUSTOMER_FILE);
@@ -81,17 +90,23 @@ export const deleteItem = (req, res) => {
             return res.status(404).send(fail(`id: ${customerId} not found`));
         }
 
-        const item = customer.cart.find((item) => item.productId === +productId);
+        const item = customer.cart.find(
+            (item) => item.productId === +productId,
+        );
 
         if (!item) {
-            return res.status(404).send(fail(`product id: ${productId} not found`));
+            return res
+                .status(404)
+                .send(fail(`product id: ${productId} not found`));
         }
 
-        customer.cart = customer.cart.filter((item) => item.productId !== +productId);
-    
+        customer.cart = customer.cart.filter(
+            (item) => item.productId !== +productId,
+        );
+
         await writeFile(CUSTOMER_FILE, customers);
         res.send(success("item deleted from cart"));
     } catch (err) {
         res.status(500).send(fail("internal server error"));
     }
-}
+};
